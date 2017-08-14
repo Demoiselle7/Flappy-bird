@@ -10,5 +10,6 @@ var config = {
     bird_speed:{
         _comment:'鸟的速度',
         value:2,
-    }
+    },
+    // score: 0,
 }

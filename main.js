@@ -1,15 +1,3 @@
-var loadLevel = function(game, n) {
-    n = n - 1
-    var level = levels[n]
-    var blocks = []
-    for (var i = 0; i < level.length; i++) {
-        var p = level[i]
-        var b = Block(game, p)
-        blocks.push(b)
-    }
-    return blocks
-}
-
 var enableDebugMode = function(game, enable) {
     if(!enable) {
         return
@@ -22,7 +10,7 @@ var enableDebugMode = function(game, enable) {
             window.paused = !window.paused
         } else if ('1234567'.includes(k)) {
             // 为了 debug 临时加的载入关卡功能
-            blocks = loadLevel(game, Number(k))
+            blocks = loadLevel(game, Nupmber(k))
         }
     })
     // 控制速度
@@ -41,14 +29,25 @@ var __main = function() {
         bg: 'img/bg_day.png',
         ground:'img/land.png',
         pipe:'img/pipe_up.png',
+        begin:'img/text_ready.png',
+        beginLogo:'img/button_play.png',
+        score0:'img/score_0.png',
+        score1:'img/score_1.png',
+        score2:'img/score_2.png',
+        score3:'img/score_3.png',
+        score4:'img/score_4.png',
+        score5:'img/score_5.png',
+        score6:'img/score_6.png',
+        score7:'img/score_7.png',
+        score8:'img/score_8.png',
+        score9:'img/score_9.png',
 
     }
     var game = GuaGame.instance(30, images, function(g){
-        // var s = Scene.new(g)
-        var s = SceneTitle.new(g)
+        var s = Scene.new(g)
+        // var s = SceneTitle.new(g)
         g.runWithScene(s)
     })
-
     enableDebugMode(game, true)
 }
 

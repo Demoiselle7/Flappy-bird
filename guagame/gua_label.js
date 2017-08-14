@@ -7,7 +7,7 @@ class Gualabel {
         return new this(game, text)
     }
     draw() {
-        this.game.context.fillText(this.text, 100, 190)
+        this.game.context.fillText(this.text, 0, 200)
     }
     update() {
 
