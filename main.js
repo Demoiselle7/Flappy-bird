@@ -1,23 +1,47 @@
-var enableDebugMode = function(game, enable) {
-    if(!enable) {
-        return
+var es = sel => document.querySelectorAll(sel)
+
+var bindAll = function(sel, eventName, callback) {
+    var l = es(sel)
+    for (var i = 0; i < l.length; i++) {
+        var input = l[i]
+        input.addEventListener(eventName,function(event) {
+            callback(event)
+        })
     }
-    window.paused = false
-    window.addEventListener('keydown', function(event){
-        var k = event.key
-        if (k == 'p') {
-            // 暂停功能
-            window.paused = !window.paused
-        } else if ('1234567'.includes(k)) {
-            // 为了 debug 临时加的载入关卡功能
-            blocks = loadLevel(game, Nupmber(k))
-        }
-    })
-    // 控制速度
-    document.querySelector('#id-input-speed').addEventListener('input', function(event) {
-        var input = event.target
-        // log(event, input.value)
-        window.fps = Number(input.value)
+}
+
+var templateControl = function(key,item) {
+    var t = `<div class="">
+        <label>
+            <input class="gua-auto-slider" type="range"
+                max='300'
+                value="${item.value}"
+                data-value='config.${key}'>
+            ${item._comment}: <span class="gua-label"></span>
+        </label>
+    </div>`
+    return t
+}
+
+var insertControls = function() {
+    var div = e('.gua-controls')
+    var keys = Object.keys(config)
+    for (var k of keys) {
+        var item = config[k]
+        var html = templateControl(k, item)
+        div.insertAdjacentHTML('beforeend',html)
+    }
+}
+
+var bindEvents = function() {
+    bindAll('.gua-auto-slider','input',function(event) {
+        var target = event.target
+        var bindVar = target.dataset.value
+        var v = target.value
+        eval(bindVar + '.value =' + v)
+        //
+        var label = target.closest('label').querySelector('.gua-label')
+        label.innerText = v
     })
 }
 
@@ -28,7 +52,9 @@ var __main = function() {
         bird2: 'img/bird0_2.png',
         bg: 'img/bg_day.png',
         ground:'img/land.png',
-        pipe:'img/pipe_up.png',
+        pipe_up:'img/pipe_up.png',
+        pipe_down:'img/pipe_down.png',
+        // pipe:'img/pipe_up.png',
         begin:'img/text_ready.png',
         beginLogo:'img/button_play.png',
         score0:'img/score_0.png',
@@ -41,14 +67,19 @@ var __main = function() {
         score7:'img/score_7.png',
         score8:'img/score_8.png',
         score9:'img/score_9.png',
-
+        gameOver:'img/text_game_over.png',
+        restart:'img/restart.png',
     }
+    //从配置文件生成html控件
+    insertControls()
+    //绑定事件
+    bindEvents()
+
     var game = GuaGame.instance(30, images, function(g){
-        var s = Scene.new(g)
-        // var s = SceneTitle.new(g)
+        // var s = Scene.new(g)
+        var s = SceneTitle.new(g)
         g.runWithScene(s)
     })
-    enableDebugMode(game, true)
 }
 
 __main()
