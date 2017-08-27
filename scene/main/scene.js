@@ -124,7 +124,7 @@ class Scene extends GuaScene {
             log('scores', this.scores.scores)
         }
 
-    //判断死亡
+        //判断死亡
         if (this.b.y === 427) {
             // var self = this
             this.addElement(this.over)

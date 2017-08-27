@@ -2,7 +2,6 @@ class Bird extends GuaAnimation {
     constructor(game) {
         super(game)
         this.game = game
-        // 缂栫爜
         this.animations = {
             idle: [],
             run: [],
@@ -31,7 +30,7 @@ class Bird extends GuaAnimation {
     setup() {
         this.rotation = 0
         this.alive = true
-        
+
         this.x = 100
         this.y = 200
 

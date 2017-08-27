@@ -3,7 +3,6 @@ class SceneTitle extends GuaScene {
     constructor(game) {
         super(game)
 
-
         //bg
         var background = GuaImage.new(game,'bg')
         this.addElement(background)
@@ -40,8 +39,11 @@ class SceneTitle extends GuaScene {
         })
 
         //游戏提示
-        var label = Gualabel.new(game, '                           print b to start')
+        var label = Gualabel.new(game, 'print b to start',110,205)
         this.addElement(label)
+        var reminder = Gualabel.new(game, 'print j to jump',110, 230)
+        this.addElement(reminder)
+
     }
 
     update() {
